@@ -1,0 +1,34 @@
+services:
+  database:
+    image: mysql
+    networks: 
+      - wordpressNet
+    volumes:
+      - databaseVol:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpressDB
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+  wordpress:
+    depends_on:
+      - database
+    image: wordpress
+    networks:
+      - wordpressNet
+    volumes:
+      - wordpressVol:/var/www/html
+    ports:
+      - "8085:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_NAME: wordpressDB
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+networks:
+  wordpressNet:
+volumes:
+  databaseVol:
+  wordpressVol:
