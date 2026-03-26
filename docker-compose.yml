@@ -18,7 +18,7 @@ services:
     networks:
       - wordpressNet
     volumes:
-      - wordpressVol:/var/www/html
+      - ./wordpress:/var/www/html
     ports:
       - "8085:80"
     restart: always
@@ -31,4 +31,3 @@ networks:
   wordpressNet:
 volumes:
   databaseVol:
-  wordpressVol:
